@@ -1,0 +1,9 @@
+{
+  "name": "student-task-manager",
+  "version": "1.0.0",
+  "description": "Student Task Manager Web Application",
+  "scripts": {
+    "build": "node build.js",
+    "test": "node test.js"
+  }
+}
