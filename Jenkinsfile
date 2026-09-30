@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/home/administrator/.nvm/versions/node/v22.0.0/bin:${env.PATH}"
+    }
+
     options {
         disableConcurrentBuilds()
         timestamps()
@@ -31,9 +35,21 @@ pipeline {
             }
         }
 
+        stage('Check Node.js') {
+            steps {
+                sh '''
+                    echo "Node version:"
+                    node --version
+
+                    echo "npm version:"
+                    npm --version
+                '''
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'npm ci'
             }
         }
 
@@ -44,7 +60,7 @@ pipeline {
                     test -f style.css
                     test -f script.js
                     test -f package.json
-                    test -f test.js
+                    test -f test/test.js
                     test -f build.js
 
                     echo "All required project files exist."
@@ -56,7 +72,7 @@ pipeline {
             steps {
                 sh '''
                     node --check script.js
-                    node --check test.js
+                    node --check test/test.js
                     node --check build.js
 
                     echo "JavaScript syntax check passed."
