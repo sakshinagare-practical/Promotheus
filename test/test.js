@@ -136,7 +136,7 @@ describe('Study Planner - Application Tests', () => {
         window.addTask();
 
         expect(window.alert).toHaveBeenCalledWith(
-            'Topic, duration, and target date are required.'
+            'Topic, duration, and target date are required123.'
         );
 
         expect(window.tasks.length).toBe(0);
