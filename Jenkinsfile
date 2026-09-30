@@ -31,12 +31,21 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
         stage('Validate Files') {
             steps {
                 sh '''
                     test -f index.html
                     test -f style.css
                     test -f script.js
+                    test -f package.json
+                    test -f test.js
+                    test -f build.js
 
                     echo "All required project files exist."
                 '''
@@ -46,39 +55,33 @@ pipeline {
         stage('Validate JavaScript') {
             steps {
                 sh '''
-                    if command -v node >/dev/null 2>&1; then
-                        node --check script.js
-                        echo "JavaScript syntax check passed."
-                    else
-                        echo "Node.js is not installed."
-                        echo "Skipping JavaScript syntax check."
-                    fi
+                    node --check script.js
+                    node --check test.js
+                    node --check build.js
+
+                    echo "JavaScript syntax check passed."
                 '''
             }
         }
 
         stage('Build') {
             steps {
-                sh '''
-                    rm -rf build
-                    mkdir -p build
+                sh 'npm run build'
+            }
+        }
 
-                    cp index.html build/
-                    cp style.css build/
-                    cp script.js build/
-
-                    echo "Application packaged successfully."
-                    ls -la build/
-                '''
+        stage('Automated Testing') {
+            steps {
+                sh 'npm test'
             }
         }
 
         stage('Test Build') {
             steps {
                 sh '''
-                    test -f build/index.html
-                    test -f build/style.css
-                    test -f build/script.js
+                    test -f index.html
+                    test -f style.css
+                    test -f script.js
 
                     echo "Build verification successful."
                 '''
