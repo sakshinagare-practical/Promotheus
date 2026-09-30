@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "build": "node build.js",
-    "test": "jest --runInBand"
+    "test": "jest test/test.js --runInBand"
   },
   "devDependencies": {
     "jest": "^30.0.0",
