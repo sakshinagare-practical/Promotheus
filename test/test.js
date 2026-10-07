@@ -354,7 +354,7 @@ describe('Study Planner - Application Tests', () => {
 
         expect(
             document.documentElement.dataset.theme
-        ).toBe('light');
+        ).toBe('lightXYZ');
     });
 
 
