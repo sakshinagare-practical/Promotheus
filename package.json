@@ -11,5 +11,8 @@
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
     "jsdom": "^26.1.0"
+  },
+  "dependencies": {
+    "prom-client": "^15.1.3"
   }
 }

@@ -1,20 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: student-task
+
 spec:
   replicas: 2
+
   selector:
     matchLabels:
       app: student-task
+
   template:
     metadata:
       labels:
         app: student-task
+
     spec:
       containers:
+
         - name: student-task
           image: student-task
           imagePullPolicy: IfNotPresent
+
           ports:
             - containerPort: 80
+
+        - name: metrics
+          image: task-manager-metrics:1.0
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 3000

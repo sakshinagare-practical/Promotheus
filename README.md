@@ -88,8 +88,6 @@ One click toggles between both states.
 ---
 
 
-
-
 ## 🔍 Smart Search
 
 Find your study topics instantly.
